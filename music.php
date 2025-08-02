@@ -1,184 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-
-<style>
-.album-cover {
-    width: 90%;
-}
-
-.swiper {
-    width: 100%;
-    padding: 40px 0;
-}
-
-.swiper-slide {
-    position: relative;
-    max-width: 200px;
-    aspect-ratio: 1/1;
-    border-radius: 10px;
-    opacity: 0.4;
-}
-
-.swiper-slide img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    -webkit-box-reflect: below -5px linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
-    pointer-events: none;
-    user-select: none;
-}
-
-.swiper-slide-active {
-    opacity: 1;
-    animation: zoom .5s infinite alternate;
-}
-
-@keyframes zoom {
-    0% {
-        transform: scale(1);
-    }
-
-    100% {
-        transform: scale(1.05);
-    }
-}
-
-/* Music Player */
-
-.music-player {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-clr);
-    width: 100%;
-    padding: 20px 20px 50px;
-    border-radius: 20px;
-}
-
-.music-player h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.6;
-    height: 60px
-}
-
-.music-player p {
-    font-size: 1rem;
-    font-weight: 400;
-    opacity: 0.6;
-    margin-top: 0
-}
-
-/* Music Player Progress */
-
-#progress {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-    height: 7px;
-    background: linear-gradient(
-      to right, #63c5da var(--progress, 0%), rgba(163, 162, 164, 0) var(--progress, 0%)
-    );
-    cursor: pointer;
-    z-index: 1;
-    position: relative;
-    border-radius: 10px;
-}
-
-.progress-wrapper {
-    max-width: 380px;
-    background: rgba(163, 162, 164, 0.4);
-    margin: 20px 0;
-    border-radius: 10px;
-    height: 7px;
-    display: flex;
-    align-items: center;
-}
-
-#progress::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    background: rgba(163, 162, 164, 0.9);
-    width: 16px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    outline: 4px solid var(--primary-clr);
-    box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
-}
-
-/* Music Player Controls */
-
-.controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.controls button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    aspect-ratio: 1/1;
-    margin: 20px;
-    background: rgba(0, 0, 0, 0.4);
-    color: var(--primary-clr);
-    border-radius: 50%;
-    border: 0;
-    outline: 0;
-    font-size: 1.1rem;
-    box-shadow: 0 5px 20px #63c5da;
-    transition: all 0.3s linear;
-    cursor: unset;
-}
-
-.controls button:is(:hover, :focus-visible) {
-    transform: scale(0.96);
-}
-
-.controls button:nth-child(2) {
-    transform: scale(1.3);
-    background: #63c5da;
-}
-
-.controls button:nth-child(2):is(:hover, :focus-visible) {
-    transform: scale(1.25);
-}
-
-.emoji-particle {
-    position: absolute;
-    pointer-events: none;
-    animation: emoji-bounce 1.2s ease-out forwards;
-    will-change: transform;
-    z-index: 999;
-    transform: translateY(0);
-    opacity: 0;
-    pointer-events: none; 
-    z-index: -1;
-    display: none;
-}
-
-@keyframes emoji-bounce {
-    0% {
-        opacity: 0;
-        transform: translateY(0) scale(1);
-    }
-
-    30% {
-        opacity: 1;
-        transform: translateY(-5px) scale(1.2);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.8);
-    }
-}
-</style>
-
 <div class="musicBox">
     <div class="album-cover">
         <div class="swiper">
@@ -296,6 +118,9 @@ song.addEventListener("timeupdate", () => {
     if (!song.paused) {
         progress.value = song.currentTime;
 
+        const playedPercentage = (song.currentTime / song.duration) * 100;
+        progress.style.setProperty('--progress', `${playedPercentage}%`);
+
         const ratio = progress.value / progress.max;
         const width = progress.offsetWidth;
         const x = width * ratio;
@@ -305,6 +130,7 @@ song.addEventListener("timeupdate", () => {
         }
     }
 });
+
 
 song.addEventListener("loadedmetadata", () => {
     progress.max = song.duration;
@@ -341,10 +167,7 @@ function playPause() {
 playPauseButton.addEventListener("click", playPause);
 
 progress.addEventListener("input", () => {
-    const ratio = progress.value / progress.max;
-    const width = progress.offsetWidth;
-    const x = width * ratio;
-    showEmojisAtProgress(x);
+    song.currentTime = progress.value;
 });
 
 progress.addEventListener("change", () => {
@@ -419,21 +242,4 @@ function showEmojisAtProgress(x) {
         setTimeout(() => emoji.remove(), 1200);
     }
 }
-
-song.addEventListener("timeupdate", () => {
-    if (!song.paused) {
-        progress.value = song.currentTime;
-
-        const playedPercentage = (song.currentTime / song.duration) * 100;
-        progress.style.setProperty('--progress', `${playedPercentage}%`);
-
-        const ratio = progress.value / progress.max;
-        const width = progress.offsetWidth;
-        const x = width * ratio;
-
-        if (Math.floor(song.currentTime * 5) % 5 === 0) {
-            showEmojisAtProgress(x);
-        }
-    }
-});
 </script>
