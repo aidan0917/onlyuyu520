@@ -1,4 +1,27 @@
-<?php include 'header.php' ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="我最爱的妳 生日快乐">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only Yuyu | 我最爱的妳 生日快乐❤️</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&family=Playwrite+MX+Guides&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+
+<div id="cursor">
+    <div class="cursor_circle"></div>
+</div>
+
 
 <!-- CANDLE -->
 <div class="bg_candle">
@@ -27,7 +50,60 @@
 
     <!-- LOVE -->
     <div class="bg_love hidden">
-        <?php include 'yuyu.php' ?>
+        <marquee direction="up" scrollamount="2" class="textLove">
+    我们最初，只是屏幕前的陌生人，<br>
+    一句“哈喽”穿过网线，点亮了灵魂的灯。<br>
+    从直播间的弹幕，到私下里的寒暄，<br>
+    你我之间，悄悄地编织了一段缘分。<br><br>
+
+    谁说虚拟的世界没有真心？<br>
+    我却在光影流转中遇见了你——一个知己、一个朋友，<br>
+    聊天、陪伴，欢笑声声，<br>
+    一点一滴，都慢慢堆叠成了不可替代的温柔。<br><br>
+
+    后来我们见了面，那天阳光正好，<br>
+    你笑着向我走来，像风一样轻，像梦一样好。<br>
+    我知道，从那一刻开始，我们早已不是网友，<br>
+    而是彼此生命里，最真实的依靠。<br><br>
+
+    我会一直陪着你，不论你在高处低谷，<br>
+    你的难过我听，你的开心我祝。<br>
+    就算风雨再大，也别怕黑夜太长，<br>
+    因为我会像灯塔一样，守着你的方向。<br><br>
+
+    只要你需要，我就会在，<br>
+    哪怕隔着千山万水，也不会走开。<br>
+    你若累了，就靠一靠，<br>
+    我愿做你心里最安静的一块港湾，哪怕默默不表。<br><br>
+
+    日子很长，人生很广，<br>
+    愿我们这段情谊，穿越岁月，依旧闪光。<br>
+    从屏幕到身旁，从心动到心安，<br>
+    你放心往前闯，我会永远在你身后，温柔不散。<br><br>
+
+    ———— Only.妤特猪
+</marquee>
+
+<div class="imgBg">
+    <div id="drag-container">
+        <div id="spin-container">
+            <img src="img/yu1.jpg" alt="">
+            <img src="img/yu2.jpg" alt="">
+            <img src="img/yu4.jpg" alt="">
+            <img src="img/yu5.jpg" alt="">
+            <img src="img/yu6.jpg" alt="">
+            <img src="img/yu7.jpg" alt="">
+            <img src="img/yu8.jpg" alt="">
+            <img src="img/yu9.jpg" alt="">
+            <img src="img/yu10.jpg" alt="">
+            <img src="img/yu12.jpg" alt="">
+
+            <!-- Text at center of ground -->
+            <p>🎂 <br> Happy Birthday Only.Yuyu</p>
+        </div>
+        <div id="ground"></div>
+    </div>
+</div>
         <img src="img/bg.jpg?v=1" class="bg_img">
         <p class="onlyText">
             Only Yuyu Only Tomyam Only Yuyu Only Tomyam Only Yuyu Only Tomyam Only Yuyu Only Tomyam Only Yuyu Only
@@ -1721,9 +1797,66 @@
         <video width="100%" muted autoplay loop>
             <source src="song/star.mp4" type="video/mp4">
         </video>
-        <?php include 'music.php' ?>
+        <div class="musicBox">
+    <div class="album-cover">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="img/img1.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img2.jpg?v=2" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img3.jpg?v=1" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img4.jpg?v=1" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img5.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img6.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="img/img7.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-player">
+        <h2>Title</h2>
+        <p>Song Name</p>
+
+        <audio id="song">
+            <source src="song-list/Luke-Bergs-Gold.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div class="progress-wrapper" style="position: relative; width: 100%;">
+            <input type="range" value="0" id="progress" />
+        </div>
+
+        <div class="controls">
+            <button class="backward">
+                <i class="fa-solid fa-backward"></i>
+            </button>
+            <button class="play-pause-btn">
+                <i class="fa-solid fa-play" id="controlIcon"></i>
+            </button>
+            <button class="forward">
+                <i class="fa-solid fa-forward"></i>
+            </button>
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
+</body>
 
-<?php include 'footer.php' ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+
+</html>
