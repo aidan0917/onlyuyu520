@@ -1,36 +1,36 @@
 // ====== CANDLE ====== //
 $(function () {
-   const title = $("h1");
-   const text = title.text();
-   const flame = $('#flame');
-   const candle = $('#candle');
+    const title = $("h1");
+    const text = title.text();
+    const flame = $('#flame');
+    const candle = $('#candle');
 
-   title.empty().addClass("h1_animated");
+    title.empty().addClass("h1_animated");
 
-   [...text].forEach((char, i) => {
-      const span = $("<span>").text(char);
-      span.css("animation-delay", `${i * 0.3}s`);
-      title.append(span);
-   });
+    [...text].forEach((char, i) => {
+        const span = $("<span>").text(char);
+        span.css("animation-delay", `${i * 0.3}s`);
+        title.append(span);
+    });
 
-   const totalTime = text.length * 0.3 + 0.8;
+    const totalTime = text.length * 0.3 + 0.8;
 
-   setTimeout(() => {
-      title.addClass("h1_to_header");
-      candle.addClass("visible");
-      startLoveRain();
-   }, totalTime * 1000);
+    setTimeout(() => {
+        title.addClass("h1_to_header");
+        candle.addClass("visible");
+        startLoveRain();
+    }, totalTime * 1000);
 
-   flame.on("click", function () {
-      stopLoveRain()
-      flame.removeClass('burn').addClass('puff');
-      $('#candle').animate({ 'opacity': '.5' }, 100);
-      $(".bg_candle").addClass("zoom_out");
-      setTimeout(() => {
-         $(".bg_candle").hide();
-         $(".bg").addClass("zoom_in_bg");
-      }, 1500);
-   });
+    flame.on("click", function () {
+        stopLoveRain()
+        flame.removeClass('burn').addClass('puff');
+        $('#candle').animate({ 'opacity': '.5' }, 100);
+        $(".bg_candle").addClass("zoom_out");
+        setTimeout(() => {
+            $(".bg_candle").hide();
+            $(".bg").addClass("zoom_in_bg");
+        }, 1500);
+    });
 });
 
 // ====== LOVE ====== //
@@ -38,165 +38,187 @@ let loveStarted = false;
 let loveInterval = null;
 
 function startLoveRain() {
-   if (loveStarted) return;
-   loveStarted = true;
+    if (loveStarted) return;
+    loveStarted = true;
 
-   const emojiList = [
-      "🎉", "🎂", "🎈", "🍰", "🍾", "🧁", "✨",
-      "💖", "💘", "💕", "💓", "❣️", "💗", "❤"
-   ];
+    const emojiList = [
+        "🎉", "🎂", "🎈", "🍰", "🍾", "🧁", "✨",
+        "💖", "💘", "💕", "💓", "❣️", "💗", "❤"
+    ];
 
-   loveInterval = setInterval(() => {
-      const heart = $("<div class='heart'></div>");
-      const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
-      const size = Math.random() * 8 + 14;
-      const left = Math.random() * 100;
-      const duration = Math.random() * 4 + 6;
+    loveInterval = setInterval(() => {
+        const heart = $("<div class='heart'></div>");
+        const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+        const size = Math.random() * 8 + 14;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 4 + 6;
 
-      heart.text(randomEmoji);
-      heart.css({
-         left: `${left}%`,
-         fontSize: `${size}px`,
-         animationDuration: `${duration}s`,
-      });
+        heart.text(randomEmoji);
+        heart.css({
+            left: `${left}%`,
+            fontSize: `${size}px`,
+            animationDuration: `${duration}s`,
+        });
 
-      $("body").append(heart);
+        $("body").append(heart);
 
-      setTimeout(() => {
-         heart.remove();
-      }, duration * 1500);
-   }, 300);
+        setTimeout(() => {
+            heart.remove();
+        }, duration * 1500);
+    }, 300);
 }
 
 function stopLoveRain() {
-   if (loveInterval) {
-      clearInterval(loveInterval);
-      loveInterval = null;
-      loveStarted = false;
-   }
+    if (loveInterval) {
+        clearInterval(loveInterval);
+        loveInterval = null;
+        loveStarted = false;
+    }
 
-   $(".heart").remove();
+    $(".heart").remove();
 }
 
 // ====== CURSOR ====== //
 document.addEventListener('DOMContentLoaded', function () {
-   const cursor = document.querySelector('#cursor');
-   const cursorCircle = cursor.querySelector('.cursor_circle');
+    const cursor = document.querySelector('#cursor');
+    const cursorCircle = cursor.querySelector('.cursor_circle');
 
-   const mouse = { x: -100, y: -100 };
-   const pos = { x: 0, y: 0 };
-   const speed = 0.1;
+    const mouse = { x: -100, y: -100 };
+    const pos = { x: 0, y: 0 };
+    const speed = 0.1;
 
-   const updateCoordinates = e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-   }
+    const updateCoordinates = e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    }
 
-   window.addEventListener('mousemove', updateCoordinates);
+    window.addEventListener('mousemove', updateCoordinates);
 
-   function getAngle(diffX, diffY) {
-      return Math.atan2(diffY, diffX) * 180 / Math.PI;
-   }
+    function getAngle(diffX, diffY) {
+        return Math.atan2(diffY, diffX) * 180 / Math.PI;
+    }
 
-   function getSqueeze(diffX, diffY) {
-      const distance = Math.sqrt(
-         Math.pow(diffX, 2) + Math.pow(diffY, 2)
-      );
-      const maxSqueeze = 0.15;
-      const accelerator = 1500;
-      return Math.min(distance / accelerator, maxSqueeze);
-   }
+    function getSqueeze(diffX, diffY) {
+        const distance = Math.sqrt(
+            Math.pow(diffX, 2) + Math.pow(diffY, 2)
+        );
+        const maxSqueeze = 0.15;
+        const accelerator = 1500;
+        return Math.min(distance / accelerator, maxSqueeze);
+    }
 
-   const updateCursor = () => {
-      const diffX = Math.round(mouse.x - pos.x);
-      const diffY = Math.round(mouse.y - pos.y);
+    const updateCursor = () => {
+        const diffX = Math.round(mouse.x - pos.x);
+        const diffY = Math.round(mouse.y - pos.y);
 
-      pos.x += diffX * speed;
-      pos.y += diffY * speed;
+        pos.x += diffX * speed;
+        pos.y += diffY * speed;
 
-      const angle = getAngle(diffX, diffY);
-      const squeeze = getSqueeze(diffX, diffY);
+        const angle = getAngle(diffX, diffY);
+        const squeeze = getSqueeze(diffX, diffY);
 
-      const scale = 'scale(' + (1 + squeeze) + ', ' + (1 - squeeze) + ')';
-      const rotate = 'rotate(' + angle + 'deg)';
-      const translate = 'translate3d(' + pos.x + 'px ,' + pos.y + 'px, 0)';
+        const scale = 'scale(' + (1 + squeeze) + ', ' + (1 - squeeze) + ')';
+        const rotate = 'rotate(' + angle + 'deg)';
+        const translate = 'translate3d(' + pos.x + 'px ,' + pos.y + 'px, 0)';
 
-      cursor.style.transform = translate;
-      cursorCircle.style.transform = rotate + scale;
-   };
+        cursor.style.transform = translate;
+        cursorCircle.style.transform = rotate + scale;
+    };
 
-   function loop() {
-      updateCursor();
-      requestAnimationFrame(loop);
-   }
-   loop();
+    function loop() {
+        updateCursor();
+        requestAnimationFrame(loop);
+    }
+    loop();
 
-   document.querySelectorAll('button, #top, .switchBtn, .progress-wrapper, .progress-wrapper input').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-         cursorCircle.classList.add('active');
-      });
+    document.querySelectorAll('button, #top, .switchBtn, .progress-wrapper, .progress-wrapper input').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorCircle.classList.add('active');
+        });
 
-      el.addEventListener('mouseleave', () => {
-         cursorCircle.classList.remove('active');
-      });
+        el.addEventListener('mouseleave', () => {
+            cursorCircle.classList.remove('active');
+        });
 
-      el.addEventListener('mousedown', () => {
-         cursorCircle.classList.add('active');
-      });
-      el.addEventListener('mouseup', () => {
-         cursorCircle.classList.remove('active');
-      });
-   });
+        el.addEventListener('mousedown', () => {
+            cursorCircle.classList.add('active');
+        });
+        el.addEventListener('mouseup', () => {
+            cursorCircle.classList.remove('active');
+        });
+    });
 
-   const swiperEls = document.querySelectorAll('.swiper-wrapper, .progress-wrapper, input');
-   swiperEls.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-         cursorCircle.classList.add('hidden');
-      });
-      el.addEventListener('mouseleave', () => {
-         cursorCircle.classList.remove('hidden');
-      });
-   });
+    const swiperEls = document.querySelectorAll('.swiper-wrapper, .progress-wrapper, input');
+    swiperEls.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorCircle.classList.add('hidden');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorCircle.classList.remove('hidden');
+        });
+    });
 });
 
+const loveAudio = new Audio("song/lovesong.mp3");
+loveAudio.loop = true;
+
+function stopAllAudio() {
+    song.pause();
+    loveAudio.pause();
+    song.currentTime = 0;
+    loveAudio.currentTime = 0;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-   const switchBtn = document.querySelector(".switchBtn");
-   const bgMusic = document.querySelector(".bg_music");
-   const bgLove = document.querySelector(".bg_love");
+    const switchBtn = document.querySelector(".switchBtn");
+    const bgMusic = document.querySelector(".bg_music");
+    const bgLove = document.querySelector(".bg_love");
 
-   const song = document.getElementById("song");
-   const loveAudio = new Audio("song/lovesong.mp3");
-   loveAudio.loop = true;
+    const song = document.getElementById("song");
 
-   let isMusicVisible = true;
+    let isMusicVisible = true;
 
-   switchBtn.addEventListener("click", () => {
-      if (isMusicVisible) {
-         bgMusic.classList.add("hidden");
-         bgLove.classList.remove("hidden");
-         song.pause();
-         loveAudio.currentTime = 0;
-         loveAudio.play();
-      } else {
-         bgLove.classList.add("hidden");
-         bgMusic.classList.remove("hidden");
-         loveAudio.pause();
-         loveAudio.currentTime = 0;
-         song.play();
-      }
-      isMusicVisible = !isMusicVisible;
-   });
+    switchBtn.addEventListener("click", () => {
+        stopAllAudio();
+        if (isMusicVisible) {
+            bgMusic.classList.add("hidden");
+            bgLove.classList.remove("hidden");
 
-   const progress = document.getElementById("progress");
-   if (progress) {
-      ['mousedown', 'touchstart', 'pointerdown'].forEach(evt => {
-         progress.addEventListener(evt, e => e.stopPropagation());
-      });
+            const items = document.querySelectorAll("#spin-container img, #spin-container video");
+            items.forEach(item => {
+                item.style.transform = "rotateY(0deg) translateZ(0px)";
+                item.style.transition = "none";
+            });
 
-      ['mousemove', 'touchmove', 'pointermove'].forEach(evt => {
-         progress.addEventListener(evt, e => e.stopPropagation());
-      });
-   }
+            document.querySelector('#drag-container').classList.remove('inited');
+
+            setTimeout(() => {
+                init();
+                document.querySelector('#drag-container').classList.add('inited');
+            }, 100);
+
+            loveAudio.play();
+            ospin.style.animationPlayState = 'running'; 
+
+        } else {
+            bgLove.classList.add("hidden");
+            bgMusic.classList.remove("hidden");
+            song.play();
+        }
+
+        isMusicVisible = !isMusicVisible;
+    });
+
+    const progress = document.getElementById("progress");
+    if (progress) {
+        ['mousedown', 'touchstart', 'pointerdown'].forEach(evt => {
+            progress.addEventListener(evt, e => e.stopPropagation());
+        });
+
+        ['mousemove', 'touchmove', 'pointermove'].forEach(evt => {
+            progress.addEventListener(evt, e => e.stopPropagation());
+        });
+    }
 });
 
 const progress = document.getElementById("progress");
@@ -209,41 +231,75 @@ const songName = document.querySelector(".music-player h2");
 const artistName = document.querySelector(".music-player p");
 
 const songs = [{
-        title: "快闪",
-        name: "离家出走",
-        source: "song/yuyu_song1.mp3",
-    },
-    {
-        title: "念你 在每一个凌晨 旧的歌 新的我🩵...",
-        name: "Alicia Keys",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Pawn-It-All.mp3",
-    },
-    {
-        title: "𝑫𝒂𝒊𝒍𝒚 ◡̈°·",
-        name: "Madrigal",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Madrigal-Seni-Dert-Etmeler.mp3",
-    },
-    {
-        title: "快乐不难 知足就好 今天很好，希望明天也是🤍",
-        name: "Daft Punk ft. Julian Casablancas",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Daft-Punk-Instant-Crush.mp3",
-    },
-    {
-        title: "好心情有很多种，好好打扮自己是第一种🙂‍↔️🩷",
-        name: "Harry Styles",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Harry-Styles-As-It-Was.mp3",
-    },
-
-    {
-        title: "“尽心尽力就好，日子很难周全所有。”🩵",
-        name: "Dua Lipa",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Dua-Lipa-Physical.mp3",
-    },
-    {
-        title: "“ 不听，不问，不看，不期待，好好生活💕 ”",
-        name: "Taylor Swift",
-        source: "https://github.com/ecemgo/mini-samples-great-tricks/raw/main/song-list/Taylor-Swift-Delicate.mp3",
-    },
+    title: "快闪",
+    name: "離家出走",
+    source: "song/yuyu_song1.mp3",
+},
+{
+    title: "念你 在每一个凌晨 旧的歌 新的我🩵",
+    name: "小胡同",
+    source: "song/song1.mp3",
+},
+{
+    title: "𝑫𝒂𝒊𝒍𝒚 ◡̈°·",
+    name: "最初的溫柔",
+    source: "song/song2.mp3",
+},
+{
+    title: "喜歡愛笑的你，心疼不笑的你 -- 妤特助",
+    name: "愛你但說不出口",
+    source: "song/song4.mp3",
+},
+{
+    title: "快乐不难 知足就好 今天很好，希望明天也是🤍",
+    name: "炙愛",
+    source: "song/song3.mp3",
+},
+{
+    title: "好心情有很多种，好好打扮自己是第一种🙂‍↔️🩷",
+    name: "你為我撐過的傘",
+    source: "song/song5.mp3",
+},
+{
+    title: "“尽心尽力就好，日子很难周全所有。”🩵",
+    name: "如果愛忘了",
+    source: "song/song6.mp3",
+},
+{
+    title: "“ 不听，不问，不看，不期待，好好生活💕”",
+    name: "遺憾也值得",
+    source: "song/song7.mp3",
+},
+{
+    title: "“ 我们都在改变，何必感慨从前。”",
+    name: "心亂如麻",
+    source: "song/song8.mp3",
+},
+{
+    title: "“日复一日的生活，也会有新的快乐”☁️🤍",
+    name: "最長的電影",
+    source: "song/song9.mp3",
+},
+{
+    title: "一个人就好—",
+    name: "這麼多年",
+    source: "song/song10.mp3",
+},
+{
+    title: "岁月很长,人海茫茫,你别回头,也别将就🐥",
+    name: "天空之外",
+    source: "song/song11.mp3",
+},
+{
+    title: "深渊有底，人心难测...",
+    name: "友情多餘曖昧未夠",
+    source: "song/song12.mp3",
+},
+{
+    title: "每一次的日落都是太阳留给天空的温柔⛅️🩵",
+    name: "夢一場",
+    source: "song/song13.mp3",
+},
 ];
 
 let currentSongIndex = 3;
@@ -253,7 +309,7 @@ function updateSongInfo() {
     artistName.textContent = songs[currentSongIndex].name;
     song.src = songs[currentSongIndex].source;
 
-    song.addEventListener("loadeddata", () => {});
+    song.addEventListener("loadeddata", () => { });
 }
 
 song.addEventListener("timeupdate", () => {
@@ -392,8 +448,6 @@ var rotateSpeed = -60; // unit: seconds/360 degrees
 var imgWidth = 130; // width of images (unit: px)
 var imgHeight = 180; // height of images (unit: px)
 // ===================== start =======================
-// animation start after 1000 miliseconds
-setTimeout(init, 1000);
 
 var odrag = document.getElementById('drag-container');
 var ospin = document.getElementById('spin-container');
@@ -440,17 +494,18 @@ var sX, sY, nX, nY, desX = 0,
 if (autoRotate) {
     var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
     ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
+    ospin.style.animationPlayState = 'paused';
 }
 
 
 // setup events
-document.onpointerdown = function(e) {
+document.onpointerdown = function (e) {
     clearInterval(odrag.timer);
     e = e || window.event;
     var sX = e.clientX,
         sY = e.clientY;
 
-    this.onpointermove = function(e) {
+    this.onpointermove = function (e) {
         e = e || window.event;
         var nX = e.clientX,
             nY = e.clientY;
@@ -463,8 +518,8 @@ document.onpointerdown = function(e) {
         sY = nY;
     };
 
-    this.onpointerup = function(e) {
-        odrag.timer = setInterval(function() {
+    this.onpointerup = function (e) {
+        odrag.timer = setInterval(function () {
             desX *= 0.95;
             desY *= 0.95;
             tX += desX * 0.1;
@@ -482,7 +537,7 @@ document.onpointerdown = function(e) {
     return false;
 };
 
-document.onmousewheel = function(e) {
+document.onmousewheel = function (e) {
     e = e || window.event;
     var d = e.wheelDelta / 20 || -e.detail;
     radius += d;

@@ -696,7 +696,7 @@ h1 {
 .announcement {
 	position: absolute;
     width: 100%;
-    z-index: 1001;
+    z-index: 99999;
     left: 0;
     padding: 15px;
     color: #a1a1a1;
@@ -749,6 +749,16 @@ h1 {
     color: #fff;
     text-align: center;
     font-size: 24px;
+}
+
+#spin-container img, #spin-container video {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#drag-container.inited #spin-container img,
+#drag-container.inited #spin-container video {
+    opacity: 1;
 }
 
 #ground {
@@ -808,16 +818,24 @@ h1 {
 
 .textLove {
     position: absolute;
-    z-index: 10;
+    z-index: 999999;
     left: 2vh;
     top: 0;
-    max-height: 500px;
+    max-height: 90vh;
     padding: 20px;
     width: fit-content;
     border-radius: 15px;
     bottom: 0;
     margin: auto;
-    color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    color: #c1c9cb;
+    font-size: 12px;
+	justify-content: center;
+}
+
+.m_textLove {
+	display: none !important
 }
 
 
@@ -883,21 +901,25 @@ h1 {
 		left: 0 !important;
 		padding: 0 !important;
 		width: 100% !important;
-		font-size: 20px;
-		max-height: 90% !important;
+		font-size: 16px;
+		max-height: 90vh !important;
+		display: none !important
+	}
+
+	.m_textLove {
+		display: flex !important;
 	}
 }
 
 
 @media only screen and (max-width: 767px) {
 	.textLove {
-		font-size: 18px;
+		font-size: 15px;
 	}
 }
 
-
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
 	.textLove {
-		font-size: 16px;
+		font-size: 14px;
 	}
 }
