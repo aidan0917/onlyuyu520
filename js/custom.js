@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-const loveAudio = new Audio("song/lovesong2.mp3");
+const loveAudio = new Audio("song/lovesong2.mp3?v=1");
 loveAudio.loop = true;
 
 function stopAllAudio() {
