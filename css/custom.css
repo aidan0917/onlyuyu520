@@ -991,16 +991,6 @@ h1 {
 	.textLove {
         font-size: 11px;
     }
-
-	.textLove {
-		text-align: center;
-		left: 0 !important;
-		padding: 15px 0 !important;
-		width: 100% !important;
-		max-height: 100% !important;
-		display: none !important;
-		height: 100%;
-	}
 }
 
 
@@ -1034,6 +1024,16 @@ h1 {
 		display: none !important;
 		opacity: 0 !important;
         visibility: hidden !important;
+	}
+
+	.textLove {
+		text-align: center;
+		left: 0 !important;
+		padding: 15px 0 !important;
+		width: 100% !important;
+		max-height: 100% !important;
+		display: none !important;
+		height: 100%;
 	}
 
 	.bg {
